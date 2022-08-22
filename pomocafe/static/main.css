@@ -1,0 +1,212 @@
+* {
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+    background: #fafafa;
+    font-family:'Raleway', sans-serif;
+    color: #333333;
+    margin-top: 0 auto;
+    padding: 0;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+  
+  /* The side navigation menu */
+.sidenav {
+  height: 100%; /* 100% Full-height */
+  width: 0; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color: #FAEDCD; /* Black*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 60px; /* Place content 60px from the top */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+
+}
+
+/* The navigation menu links */
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #eca77f;
+  display: block;
+  transition: 0.3s;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+  color: #CCD5AE;
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+  transition: margin-left .5s;
+  padding: 10px;
+}
+
+#open-button {
+  font-size: 30px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+.skill {
+  width: 160px;
+  height: 160px;
+  position: relative;
+}
+
+.outer {
+  height: 160px;
+  width: 160px;
+  padding: 20px;
+  box-shadow: 6px 6px 10px -1px rgba(0,0,0, 0.15), -6px -6px 10px -1px rgba(255,255,255, 0.7);
+  border-radius: 50%;
+}
+
+.inner {
+  height: 120px;
+  width: 120px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 4px 4px 6px -1px rgba(0,0,0, 0.2), inset -4px -4px 6px -1px rgba(255, 255, 255, 0.7),
+  -0.5px -0.5px 0px rgba(255, 2555, 255, 1), 0.5px 0.5px 0px rgba(0,0,0,0.15), 0px 12px 10px -10px rgba(0,0,0, 0.05);
+}
+
+.number {
+  font-weight: 600;
+  color: #555;
+  font-size: 20px;
+}
+
+circle {
+  fill: none;
+  stroke: #CCD5AE;
+  stroke-width: 20px;
+  stroke-dasharray: 450;
+  stroke-dashoffset: 450;
+  /* animation: anim 60s linear forwards; */
+}
+
+@keyframes anim {
+  100% {
+    stroke-dashoffset: 0.0;
+  }
+}
+
+svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#timer-pomo {
+  padding: 100px;
+  transform:scale(1.5);
+  -webkit-transform:scale(1.5);
+  position: relative;
+  z-index: 0;
+}
+
+.mid-buttons {
+  padding: 50px 10px 10px 25px;
+  text-align: center;
+}
+
+.button {
+  color: white;
+  display:inline-block;
+  transition-duration: 0.4s;
+  font-size: 1.1rem;
+  outline: none;
+  text-align: center;
+  border-radius: .65em;
+  border: none;
+  padding: 0.6em 1.6em;
+  background-color: wheat; /* Green */
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+}
+
+/* 
+.mid-buttons {
+  color: wheat;
+  display:inline-block;
+  transition-duration: 0.4s;
+  font-size: 100px;
+  outline: none;
+  text-align: center;
+  border-radius: .125em;
+  border: none;
+  padding: 1em 1.5em;
+} */
+
+.button1 {
+  background-color: #C1CC9C;
+  color:white;
+  font-weight: bolder;
+  margin-right: 10px;
+}
+
+.button1:hover {
+  background-color: #AAB977;
+}
+
+.button2 {
+  background-color: #fac096;
+  margin-right: 10px;
+}
+
+.button2:hover {
+  background-color: #FAAB73;
+}
+
+.button3 {
+  background-color: #ffdb9b;
+}
+
+.button3:hover {
+  background-color: #FFCB70;
+}
+
+.bottom-buttons {
+  text-align: center;
+  padding: 10px;
+}
+
+.button4 {
+  font-size: 1.6rem;
+  padding: 0.5em 1.8em;
+  margin-right: 15px;
+}
+
+.button5 {
+  font-size: 1.6rem;
+  padding: 0.5em 1.8em;
+  margin-right: 15px;
+}
+

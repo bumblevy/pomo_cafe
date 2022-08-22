@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<main id="main">
+
+    <div class="page-header">
+        <h1 class="timer-title">Pomodoro Timer</h1>
+    </div>
+    <div class="mid-buttons">
+        <button class="button button1">Pomodoro</button>
+        <button class="button button2">Short Break</button>
+        <button class="button button3">Long Break</button>
+    </div>
+    <div id="timer-pomo">
+        <div class="skill">
+            <div class="outer">
+                <div class="inner">
+                    <div id="number">
+                        
+                    </div>
+                </div>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="160px" height="160px">
+                <defs>
+                    <linearGradient id="GradientColor">
+                        <stop offset="0%" stop-color="#DA22FF" />
+                        <stop offset="100%" stop-color="#9733EE" />
+                    </linearGradient>
+                </defs>
+                <circle id="circle-anim" cx="80" cy="80" r="70"stroke-linecap="round" />
+            </svg>
+        </div>
+    </div>
+    <div class="bottom-buttons">
+        <button class="button button4">Start</button>
+        <button class="button button5">Stop</button>
+    </div>
+</main>
+{% endblock content %}

@@ -174,6 +174,7 @@ svg {
 
 .button1:hover {
   background-color: #AAB977;
+  font-weight: bolder;
 }
 
 .button2 {
@@ -183,14 +184,18 @@ svg {
 
 .button2:hover {
   background-color: #FAAB73;
+  font-weight: bolder;
 }
 
 .button3 {
-  background-color: #ffdb9b;
+  /* background-color: #ffdb9b; */
+  background-color: #2e85bb;
 }
 
 .button3:hover {
-  background-color: #FFCB70;
+  background-color: #28678f;
+  font-weight: bolder;
+  /* background-color: #FFCB70; */
 }
 
 .bottom-buttons {
@@ -199,14 +204,26 @@ svg {
 }
 
 .button4 {
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   padding: 0.5em 1.8em;
   margin-right: 15px;
+  background-color: #c2d090;
+}
+
+.button4:hover {
+  background-color: #7eab66;
+  font-weight: bolder;
 }
 
 .button5 {
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   padding: 0.5em 1.8em;
   margin-right: 15px;
+  background-color: #fd9585;
+}
+
+.button5:hover {
+  background-color: #fc6a53;
+  font-weight: bolder;
 }
 

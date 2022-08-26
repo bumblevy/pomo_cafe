@@ -1,14 +1,18 @@
 const countdownEl = document.querySelector('.number')
 const startingMinutes = 25;
 // let time = startingMinutes * 60;
-pomoCompleted = 0;
-pomodoroClicked = false;
-shortBreakClicked = false;
-longBreakClicked = false;
+let pomoCompleted = 0;
+let pomodoroClicked = false;
+let shortBreakClicked = false;
+let longBreakClicked = false;
+let triggerShort = false;
+let triggerPomo = false;
 
-pomodoroTime = 25;
-shortBreakTime = 5;
-longBreakTime = 15;
+
+
+let pomodoroTime = 25;
+let shortBreakTime = 5;
+let longBreakTime = 15;
 
 
 function setTimerSettings (pTime, sTime, lTime) {
@@ -18,7 +22,7 @@ function setTimerSettings (pTime, sTime, lTime) {
 }
 
 class Pomodoro {
-    constructor(startTime = 25, minutes = 0, seconds = 0) {
+    constructor(startTime = pomodoroTime, minutes = 0, seconds = 0) {
         this. id = null;
         this.startTime = startTime * 60;
         this.minutes = minutes;
@@ -59,13 +63,29 @@ class Pomodoro {
             countdownEl.innerHTML = `${minutes}:${seconds}`;
     
             if (diff <= 0) {
-                console.log(diff);
                 console.log("Timer is done!!!");
-                if (this.pomodoroClicked) {
+                clearInterval(this.id);
+                console.log("Pomocompleted " + pomoCompleted);
+                console.log("Pomocompleted " + pomoCompleted);
+                if (pomoCompleted >= 0 && pomoCompleted < 4 && pomodoroClicked === true) {
+                    console.log("Time to trigger short or long");
                     pomoCompleted = pomoCompleted + 1;
                     pomodoroClicked = false;
-                } 
-                clearInterval(this.id);
+                    if (pomoCompleted < 4) {
+                        shortButton.click();
+                    } else if (pomoCompleted == 4) {
+                        longButton.click();
+                    }
+                    console.log("Pomocompleted " + pomoCompleted);
+                } else if (triggerShort === true && pomoCompleted < 4) {
+                    console.log("Time to trigger pomodoro");
+                    pomodoroButton.click();
+                    triggerShort = false;
+                    console.log("Pomocompleted " + pomoCompleted);
+                } else {
+                    console.log("Done with cycle");
+                    pomodoroButton.click();
+                }
                 // Add functionality to make a sound when timer is done
                 // audio.play()
                 // notify user 
@@ -114,7 +134,8 @@ class Pomodoro {
 let number = document.getElementById('number');
 let counter = 0;
 
-setTimerSettings(1, 1, 3);
+setTimerSettings(0.1, 0.15, 0.5);
+console.log("Pomodoro Time " + pomodoroTime);
 const pomodoro = new Pomodoro(pomodoroTime, 0, 0 , true);
 //pomodoro.startTimer(time)
 // pomodoro.updateDisplay()
@@ -125,32 +146,36 @@ const longButton = document.querySelector('.button3');
 const startButton = document.querySelector('.button4');
 const stopButton = document.querySelector('.button5');
 
-while (pomoCompleted > 1 && pomoCompleted < 4 && !pomoCompleted) {
-    shortButton.click();
-    startButton.click();
-}
+// Have setting on Pomodoro when the site is loaded
+pomodoroButton.focus();
+pomodoro.updateDisplay(pomodoroTime, 0);
+pomodoroClicked = true;
 
-if (pomoCompleted == 4) {
-    pomodoro.longBreak(longBreakTime, 0);
-    pomodoro.startTime(pomodoro.startTime);
-    pomoCompleted = 0;
-}
+console.log("Pomo completed " + pomoCompleted);
 
 pomodoroButton.addEventListener('click', () => {
+    pomodoroClicked = true;
+    triggerShort = false;
+    pomodoro.setPomodoro(pomodoroTime);
+    pomodoroButton.focus();
     pomodoro.updateDisplay(pomodoroTime, 0);
 })
 
 startButton.addEventListener('click', () => {
     pomodoro.startTimer(pomodoro.startTime);
+    stopButton.innerHTML = "Pause";
 })
 
 stopButton.addEventListener('click', () => {
     pomodoro.stopTimer();
+    stopButton.innerHTML = "Stop";
 })
 
 shortButton.addEventListener('click', () => {
     // pomodoro.shortBreak(5, 0);
+    triggerShort = true;
     shortBreakClicked = true;
+    shortButton.focus();
     pomodoro.shortBreak(shortBreakTime, 0);
     // call shortBreakFunction
 })
@@ -158,6 +183,7 @@ shortButton.addEventListener('click', () => {
 longButton.addEventListener('click', () => {
     // pomodoro.longBreak(15, 0);
     longBreakClicked = true;
+    longButton.focus();
     pomodoro.longBreak(longBreakTime, 0);
 })
 

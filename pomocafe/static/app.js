@@ -1,14 +1,18 @@
+const countdownEl = document.querySelector('.number')
 class Pomodoro {
     constructor(startTime, stopTime) {
+        this. id = null;
         this.startTime = startTime;
         this.stopTime = stopTime;
+        this.minutes = 0;
+        this.seconds = 0; 
     }
 
     /* Used to start the timer with the current time */
     startTimer(duration) {
         let start = Date.now(), diff, minutes, seconds;
         timer();
-        let id = setInterval(timer, 1000);
+        this.id = setInterval(timer, 1000);
         function timer() {
             diff = duration - (((Date.now() - start) / 1000) | 0);
     
@@ -18,7 +22,7 @@ class Pomodoro {
             minutes = minutes < 10 ? "0" + minutes : minutes;
             seconds = seconds < 10 ? "0" + seconds : seconds;
     
-            countdownEl.innerHTML = `${minutes}: ${seconds}`;
+            countdownEl.innerHTML = `${minutes}:${seconds}`;
     
             if (diff <= 0) {
                 clearInterval(id);
@@ -28,7 +32,9 @@ class Pomodoro {
 
     /* Used when the player wants to stop the timer, it will pause timer */
     stopTimer() {
-
+        clearInterval(this.id);
+        this.id = null;
+        this.updateDisplay(25,0);
     }
 
     /* Used to trigger short break option: 5 minutes */
@@ -41,39 +47,42 @@ class Pomodoro {
 
     }
 
-    updateDisplay() {
-        animateProgressBar(this.startTime);
+    updateDisplay(minutes, seconds) {
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+        countdownEl.innerHTML = `${minutes}:${seconds}`;
     }
 }
 
 
 
-let number = document.getElementById('number')
-let counter = 0
+let number = document.getElementById('number');
+let counter = 0;
 const startingMinutes = 25;
 let time = startingMinutes * 60;
-const countdownEl = document.getElementById('number')
-const pomodoro = new Pomodoro(time, 0)
+
+const pomodoro = new Pomodoro(time, 0);
 //pomodoro.startTimer(time)
 // pomodoro.updateDisplay()
 
-const pomodoroButton = document.querySelector('.button1')
-const shortButton = document.querySelector('.button2')
-const longButton = document.querySelector('.button3')
-const startButton = document.querySelector('.button4')
-const stopButton = document.querySelector('.button5')
+const pomodoroButton = document.querySelector('.button1');
+const shortButton = document.querySelector('.button2');
+const longButton = document.querySelector('.button3');
+const startButton = document.querySelector('.button4');
+const stopButton = document.querySelector('.button5');
+
 
 pomodoroButton.addEventListener('click', () => {
-    pomodoro.startTimer(time)
-    pomodoro.updateDisplay()
+    pomodoro.updateDisplay(25, 0);
 })
 
+startButton.addEventListener('click', () => {
+    pomodoro.startTimer(time)
+})
 
-
-
-
-
-
+stopButton.addEventListener('click', () => {
+    pomodoro.stopTimer();
+})
 
 
 
@@ -145,7 +154,7 @@ function animateProgressBar(seconds) {
     document.getElementById('circle-anim').style.animation = animationStr;
 }
 
-document.getElementById('timer-pomo').setAttribute("transform", "scale(1.5)");
+//document.getElementById('timer-pomo').setAttribute("transform", "scale(1.5)");
 
 
 

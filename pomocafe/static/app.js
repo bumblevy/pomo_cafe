@@ -56,12 +56,16 @@ class Pomodoro {
     shortBreak(minutes, seconds) {
         this.minutes = minutes;
         this.seconds = seconds;
+        this.startTime = minutes * 60;
+        this.updateDisplay(minutes, seconds);
     }
 
     /* Used to trigger long break option: 15 minutes */
     longBreak(minutes, seconds) {
         this.minutes = minutes;
         this.seconds = seconds;
+        this.startTime = minutes * 60;
+        this.updateDisplay(minutes, seconds);
     }
 
     updateDisplay(minutes, seconds) {
@@ -99,7 +103,10 @@ stopButton.addEventListener('click', () => {
 
 shortButton.addEventListener('click', () => {
     pomodoro.shortBreak(5, 0);
-    pomodoro.updateDisplay(5,0);
+})
+
+longButton.addEventListener('click', () => {
+    pomodoro.longBreak(15, 0);
 })
 
 

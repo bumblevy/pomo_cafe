@@ -1,11 +1,26 @@
 const countdownEl = document.querySelector('.number')
 const startingMinutes = 25;
-let time = startingMinutes * 60;
+// let time = startingMinutes * 60;
+pomoCompleted = 0;
+pomodoroClicked = false;
+shortBreakClicked = false;
+longBreakClicked = false;
+
+pomodoroTime = 25;
+shortBreakTime = 5;
+longBreakTime = 15;
+
+
+function setTimerSettings (pTime, sTime, lTime) {
+    pomodoroTime = pTime;
+    shortBreakTime = sTime;
+    longBreakTime = lTime;
+}
+
 class Pomodoro {
-    constructor(startTime, stopTime, minutes, seconds) {
+    constructor(startTime = 25, minutes = 0, seconds = 0) {
         this. id = null;
         this.startTime = startTime * 60;
-        this.stopTime = stopTime;
         this.minutes = minutes;
         this.seconds = seconds;
     }
@@ -17,6 +32,11 @@ class Pomodoro {
     setSeconds(seconds) {
         this.seconds = seconds;
     }
+
+    resetSettings() {
+        pomoCompleted = 0;
+    }
+
 
     /* Used to start the timer with the current time */
     /* Reference code snippet from https://stackoverflow.com/questions/20618355/how-to-write-a-countdown-timer-in-javascript */
@@ -39,7 +59,16 @@ class Pomodoro {
             countdownEl.innerHTML = `${minutes}:${seconds}`;
     
             if (diff <= 0) {
-                clearInterval(id);
+                console.log(diff);
+                console.log("Timer is done!!!");
+                if (this.pomodoroClicked) {
+                    pomoCompleted = pomoCompleted + 1;
+                    pomodoroClicked = false;
+                } 
+                clearInterval(this.id);
+                // Add functionality to make a sound when timer is done
+                // audio.play()
+                // notify user 
             }
 
         }, 1000);
@@ -52,6 +81,13 @@ class Pomodoro {
         this.updateDisplay(this.minutes, this.seconds);
     }
 
+    setPomodoro(minutes, seconds) {
+        this.minutes = minutes;
+        this.seconds = seconds;
+        this.startTime = minutes * 60;
+        this.updateDisplay(minutes, seconds);
+    }
+
     /* Used to trigger short break option: 5 minutes */
     shortBreak(minutes, seconds) {
         this.minutes = minutes;
@@ -60,7 +96,7 @@ class Pomodoro {
         this.updateDisplay(minutes, seconds);
     }
 
-    /* Used to trigger long break option: 15 minutes */
+    /* Used to set the long break option: 15 minutes */
     longBreak(minutes, seconds) {
         this.minutes = minutes;
         this.seconds = seconds;
@@ -78,7 +114,8 @@ class Pomodoro {
 let number = document.getElementById('number');
 let counter = 0;
 
-const pomodoro = new Pomodoro(25,0, 0, 0);
+setTimerSettings(1, 1, 3);
+const pomodoro = new Pomodoro(pomodoroTime, 0, 0 , true);
 //pomodoro.startTimer(time)
 // pomodoro.updateDisplay()
 
@@ -88,9 +125,19 @@ const longButton = document.querySelector('.button3');
 const startButton = document.querySelector('.button4');
 const stopButton = document.querySelector('.button5');
 
+while (pomoCompleted > 1 && pomoCompleted < 4 && !pomoCompleted) {
+    shortButton.click();
+    startButton.click();
+}
+
+if (pomoCompleted == 4) {
+    pomodoro.longBreak(longBreakTime, 0);
+    pomodoro.startTime(pomodoro.startTime);
+    pomoCompleted = 0;
+}
 
 pomodoroButton.addEventListener('click', () => {
-    pomodoro.updateDisplay(25, 0);
+    pomodoro.updateDisplay(pomodoroTime, 0);
 })
 
 startButton.addEventListener('click', () => {
@@ -102,76 +149,18 @@ stopButton.addEventListener('click', () => {
 })
 
 shortButton.addEventListener('click', () => {
-    pomodoro.shortBreak(5, 0);
+    // pomodoro.shortBreak(5, 0);
+    shortBreakClicked = true;
+    pomodoro.shortBreak(shortBreakTime, 0);
+    // call shortBreakFunction
 })
 
 longButton.addEventListener('click', () => {
-    pomodoro.longBreak(15, 0);
+    // pomodoro.longBreak(15, 0);
+    longBreakClicked = true;
+    pomodoro.longBreak(longBreakTime, 0);
 })
 
-
-
-
-
-
-
-// setInterval(updateCountdown, 1000);
-// animateProgressBar(time);
-// startTimer(time);
-
-// function startTimer(duration) {
-//     let start = Date.now(), diff, minutes, seconds;
-//     timer();
-//     let id = setInterval(timer, 1000);
-//     function timer() {
-//         diff = duration - (((Date.now() - start) / 1000) | 0);
-
-//         minutes = (diff / 60) | 0;
-//         seconds = (diff % 60) | 0;
-
-//         minutes = minutes < 10 ? "0" + minutes : minutes;
-//         seconds = seconds < 10 ? "0" + seconds : seconds;
-
-//         countdownEl.innerHTML = `${minutes}: ${seconds}`;
-
-//         if (diff <= 0) {
-//             clearInterval(id);
-//         }
-//     }
-// }
-
-
-//     setInterval(function() {
-//         minutes = Math.floor(timer / 60);
-//         seconds = timer % 60;
-//         minutes = minutes < 10 ? "0" + minutes : minutes;
-//         seconds = seconds < 10 ? "0" + seconds : seconds;
-//         countdownEl.innerHTML = `${minutes}: ${seconds}`;
-//         if (--timer < 0) {
-//             timer = duration;
-//         }
-//     }, 1000);
-// }
-
-// let id = setInterval(function() {
-//     const minutes = Math.floor(time / 60);
-//     let seconds = time % 60; 
-//     seconds = seconds < 10? '0' + seconds: seconds;
-//     countdownEl.innerHTML = `${minutes}: ${seconds}`;
-//     time--;
-
-//     if (time == 0) {
-//         clearInterval(id);
-//     }
-// }, time);
-
-// function updateCountdown() {
-//     const minutes = Math.floor(time / 60);
-//     let seconds = time % 60; 
-//     seconds = seconds < 10? '0' + seconds: seconds;
-//     countdownEl.innerHTML = `${minutes}: ${seconds}`;
-//     time--;
-// }
 
 function animateProgressBar(seconds) {
     let timer = seconds + 2;

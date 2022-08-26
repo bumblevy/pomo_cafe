@@ -1,23 +1,37 @@
 const countdownEl = document.querySelector('.number')
+const startingMinutes = 25;
+let time = startingMinutes * 60;
 class Pomodoro {
-    constructor(startTime, stopTime) {
+    constructor(startTime, stopTime, minutes, seconds) {
         this. id = null;
-        this.startTime = startTime;
+        this.startTime = startTime * 60;
         this.stopTime = stopTime;
-        this.minutes = 0;
-        this.seconds = 0; 
+        this.minutes = minutes;
+        this.seconds = seconds;
+    }
+
+    setMinutes(minutes) {
+        this.minutes = minutes;
+    }
+
+    setSeconds(seconds) {
+        this.seconds = seconds;
     }
 
     /* Used to start the timer with the current time */
+    /* Reference code snippet from https://stackoverflow.com/questions/20618355/how-to-write-a-countdown-timer-in-javascript */
     startTimer(duration) {
         let start = Date.now(), diff, minutes, seconds;
-        timer();
-        this.id = setInterval(timer, 1000);
-        function timer() {
+        this.id = setInterval(() => {
+            /* Gives difference in seconds between timer time and time elapsed in seconds */
             diff = duration - (((Date.now() - start) / 1000) | 0);
+            console.log(diff);
     
             minutes = (diff / 60) | 0;
             seconds = (diff % 60) | 0;
+
+            this.minutes = minutes;
+            this.seconds = seconds;
     
             minutes = minutes < 10 ? "0" + minutes : minutes;
             seconds = seconds < 10 ? "0" + seconds : seconds;
@@ -27,24 +41,27 @@ class Pomodoro {
             if (diff <= 0) {
                 clearInterval(id);
             }
-        }
+
+        }, 1000);
     }
 
-    /* Used when the player wants to stop the timer, it will pause timer */
+    /* Used when the user wants to stop the timer, it will pause timer */
     stopTimer() {
         clearInterval(this.id);
         this.id = null;
-        this.updateDisplay(25,0);
+        this.updateDisplay(this.minutes, this.seconds);
     }
 
     /* Used to trigger short break option: 5 minutes */
-    shortBreak() {
-
+    shortBreak(minutes, seconds) {
+        this.minutes = minutes;
+        this.seconds = seconds;
     }
 
     /* Used to trigger long break option: 15 minutes */
-    longBreak() {
-
+    longBreak(minutes, seconds) {
+        this.minutes = minutes;
+        this.seconds = seconds;
     }
 
     updateDisplay(minutes, seconds) {
@@ -54,14 +71,10 @@ class Pomodoro {
     }
 }
 
-
-
 let number = document.getElementById('number');
 let counter = 0;
-const startingMinutes = 25;
-let time = startingMinutes * 60;
 
-const pomodoro = new Pomodoro(time, 0);
+const pomodoro = new Pomodoro(25,0, 0, 0);
 //pomodoro.startTimer(time)
 // pomodoro.updateDisplay()
 
@@ -77,11 +90,16 @@ pomodoroButton.addEventListener('click', () => {
 })
 
 startButton.addEventListener('click', () => {
-    pomodoro.startTimer(time)
+    pomodoro.startTimer(pomodoro.startTime);
 })
 
 stopButton.addEventListener('click', () => {
     pomodoro.stopTimer();
+})
+
+shortButton.addEventListener('click', () => {
+    pomodoro.shortBreak(5, 0);
+    pomodoro.updateDisplay(5,0);
 })
 
 

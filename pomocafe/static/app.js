@@ -8,12 +8,17 @@ let longBreakClicked = false;
 let triggerShort = false;
 let triggerPomo = false;
 
-
+var url = "https://github.com/bumblevy/pomo_cafe/blob/main/beep.wav";
 
 let pomodoroTime = 25;
 let shortBreakTime = 5;
 let longBreakTime = 15;
 
+
+function playSound(url) {
+    var a = new Audio(url);
+    a.play();
+}
 
 function setTimerSettings (pTime, sTime, lTime) {
     pomodoroTime = pTime;
@@ -56,6 +61,7 @@ class Pomodoro {
 
             this.minutes = minutes;
             this.seconds = seconds;
+            this.startTime = (this.minutes * 60) + this.seconds;
     
             minutes = minutes < 10 ? "0" + minutes : minutes;
             seconds = seconds < 10 ? "0" + seconds : seconds;
@@ -87,7 +93,7 @@ class Pomodoro {
                     pomodoroButton.click();
                 }
                 // Add functionality to make a sound when timer is done
-                // audio.play()
+
                 // notify user 
             }
 
